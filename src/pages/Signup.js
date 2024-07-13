@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import google from "../images/google.png";
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import {
+  GoogleAuthProvider,
+  signInWithPopup,
+  createUserWithEmailAndPassword,
+} from "firebase/auth";
 import { auth } from "../Firebase";
 
 export default function Signup() {
@@ -24,6 +28,13 @@ export default function Signup() {
 
   const emailSignUp = async () => {
     try {
+      const res = await createUserWithEmailAndPassword(
+        auth,
+        data.email,
+        data.password
+      );
+
+      console.log(res);
     } catch (error) {
       console.log(error);
     }
@@ -61,7 +72,10 @@ export default function Signup() {
             />
           </div>
           <div className="flex justify-center">
-            <button className="bg-[#00e1db] px-10 py-2 rounded-lg w-[75vw] lg:w-[30vw] font-semibold">
+            <button
+              onClick={emailSignUp}
+              className="bg-[#00e1db] px-10 py-2 rounded-lg w-[75vw] lg:w-[30vw] font-semibold"
+            >
               Signup
             </button>
           </div>
