@@ -1,9 +1,24 @@
 import React from "react";
 import google from "../images/google.png";
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { auth } from "../Firebase";
+
 export default function Signup() {
+  const provider = new GoogleAuthProvider();
+  // const navigate = useNavigate();
+  const GoogleSignIn = async () => {
+    try {
+      const res = await signInWithPopup(auth, provider);
+      // saving in db
+      console.log(res.user);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <div className="bg-[#09171c] w-screen h-screen">
-      <div className="absolute space-y-6 -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 border-[1px] border-slate-800 p-8 rounded-lg">
+      <div className="absolute space-y-6 -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 border-[1px] border-slate-800 p-8 rounded-xl">
         <h1 className="text-xl font-semibold text-center text-slate-300 md:text-2xl">
           Signup
         </h1>
@@ -13,7 +28,7 @@ export default function Signup() {
             <input
               type="text"
               placeholder="Email"
-              className="bg-[#1a292e] px-3 py-2.5 rounded-lg text-white outline-none w-[75vw] lg:w-[30vw]"
+              className="bg-[#1a292e] p-3  rounded-lg text-white outline-none w-[75vw] lg:w-[30vw]"
             />
           </div>
           <div className="space-y-4">
@@ -21,7 +36,7 @@ export default function Signup() {
             <input
               type="password"
               placeholder="Password"
-              className="bg-[#1a292e] px-3 py-2.5 rounded-lg text-white outline-none w-[75vw] lg:w-[30vw]"
+              className="bg-[#1a292e] p-3  rounded-lg text-white outline-none w-[75vw] lg:w-[30vw]"
             />
           </div>
           <div className="flex justify-center">
@@ -33,7 +48,10 @@ export default function Signup() {
             <h1 className="font-semibold text-center text-slate-300">OR</h1>
           </div>
           <div className="flex justify-center">
-            <button className="bg-[#00e1db] px-10 py-2 rounded-lg w-[75vw] lg:w-[30vw] flex items-center space-x-4 justify-center">
+            <button
+              onClick={GoogleSignIn}
+              className="bg-[#00e1db] px-10 py-2 rounded-lg w-[75vw] lg:w-[30vw] flex items-center space-x-4 justify-center"
+            >
               <img src={google} className="w-8 h-8" alt="" />
               <h1 className="font-semibold">Google</h1>
             </button>
