@@ -16,7 +16,6 @@ export default function SignUpForm() {
   });
 
   const handleGoogleSignup = async () => {
-    try {
       try {
         const res = await signInWithPopup(auth, provider);
         const docRef = doc(db, "USERS", res.providerId);
@@ -33,10 +32,7 @@ export default function SignUpForm() {
         console.log(error);
         console.log(error.message);
       }
-    } catch (error) {
-      console.log(error);
     }
-  };
 
   return (
     <>
