@@ -38,15 +38,15 @@ export default function SignUpForm() {
     <>
       <div className="bg-black w-screen h-screen p-5">
         <div className="bg-[#1e1e1e] p-5 rounded-lg space-y-5 max-w-md flex flex-col justify-center">
-          <h1 className="text-slate-300 text font-semibold text-2xl">
+          <h1 className="text-slate-300 text font-semibold text-2xl ">
             Sign Up
           </h1>
-          <p className="text-slate-300 text-sm">
+          <p className="text-slate-300 text-sm ">
             Lorem, ipsum dolor sit amet consectetur adipisicing elit.
           </p>
           <button
             onClick={handleGoogleSignup}
-            className="bg-indigo-500 font-semibold px-10 py-2 text-sm rounded-lg hover:brightness-90 ease-in-out duration-300 text-slate-300"
+            className="bg-[#4bb496] font-semibold px-10 py-2 text-sm rounded-lg hover:brightness-90 ease-in-out duration-300 "
           >
             Google
           </button>
