@@ -16,23 +16,23 @@ export default function SignUpForm() {
   });
 
   const handleGoogleSignup = async () => {
-      try {
-        const res = await signInWithPopup(auth, provider);
-        const docRef = doc(db, "USERS", res.providerId);
-        setdata({
-          ...data,
-          Name: res.user.displayName,
-          email: res.user.email,
-          Phone: res.user.phoneNumber,
-          Pic: res.user.photoURL,
-        });
-        await setDoc(docRef, data);
-        navigate("/");
-      } catch (error) {
-        console.log(error);
-        console.log(error.message);
-      }
+    try {
+      const res = await signInWithPopup(auth, provider);
+      const docRef = doc(db, "USERS", res.providerId);
+      setdata({
+        ...data,
+        Name: res.user.displayName,
+        email: res.user.email,
+        Phone: res.user.phoneNumber,
+        Pic: res.user.photoURL,
+      });
+      await setDoc(docRef, data);
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+      console.log(error.message);
     }
+  };
 
   return (
     <>
@@ -41,7 +41,7 @@ export default function SignUpForm() {
           <h1 className="text-slate-300 text font-semibold text-2xl">
             Sign Up
           </h1>
-          <p className="text-slate-300 text-sm text-">
+          <p className="text-slate-300 text-sm">
             Lorem, ipsum dolor sit amet consectetur adipisicing elit.
           </p>
           <button
