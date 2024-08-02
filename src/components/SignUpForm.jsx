@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth, db } from "../Firebase";
 import { doc, setDoc } from "firebase/firestore";
@@ -8,12 +8,26 @@ export default function SignUpForm() {
 
   const navigate = useNavigate();
 
+  const [data, setdata] = useState({
+    Name: "",
+    email: "",
+    Phone: "",
+    Pic: "",
+  });
+
   const handleGoogleSignup = async () => {
     try {
       try {
         const res = await signInWithPopup(auth, provider);
-        const docRef =  doc(db, "USERS", res.providerId);
-        await setDoc(docRef, res.user);
+        const docRef = doc(db, "USERS", res.providerId);
+        setdata({
+          ...data,
+          Name: res.user.displayName,
+          email: res.user.email,
+          Phone: res.user.phoneNumber,
+          Pic: res.user.photoURL,
+        });
+        await setDoc(docRef, data);
         navigate("/");
       } catch (error) {
         console.log(error);
