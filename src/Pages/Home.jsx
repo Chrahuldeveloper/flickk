@@ -2,26 +2,38 @@ import React, { useRef, useState } from "react";
 import { FaCloudUploadAlt } from "react-icons/fa";
 import { FaRegFilePdf } from "react-icons/fa";
 import { RxCross2 } from "react-icons/rx";
-
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+import { storage, db } from "../Firebase";
 export default function Home() {
   const fileInputRef = useRef(null);
   const [isFile, setisFile] = useState(null);
 
-  const uploadToFirebase = async ()=>{
-    try {
-      
-    } catch (error) {
-      console.log(error)
-    }
-
-  } 
+  const uploadToFirebase = async (file) => {
+    const fileRef = ref(storage, `userFiles/${file.name}`);
+    const uploadTask = await uploadBytesResumable(fileRef, file);
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {},
+      (error) => {
+        console.log(error.message);
+      },
+      async () => {
+        try {
+          const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+          console.log(downloadURL);
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    );
+  };
 
   const handleUploadFile = async (event) => {
     try {
       const file = event.target.files[0];
       if (file && file.type === "application/pdf") {
         console.log("File uploaded:", file);
-        uploadToFirebase(file)
+        uploadToFirebase(file);
         setisFile(file);
       } else {
         console.log("Please upload a PDF file.");
