@@ -7,11 +7,21 @@ export default function Home() {
   const fileInputRef = useRef(null);
   const [isFile, setisFile] = useState(null);
 
+  const uploadToFirebase = async ()=>{
+    try {
+      
+    } catch (error) {
+      console.log(error)
+    }
+
+  } 
+
   const handleUploadFile = async (event) => {
     try {
       const file = event.target.files[0];
       if (file && file.type === "application/pdf") {
         console.log("File uploaded:", file);
+        uploadToFirebase(file)
         setisFile(file);
       } else {
         console.log("Please upload a PDF file.");
@@ -53,12 +63,12 @@ export default function Home() {
             </>
           ) : (
             <>
-              <div className="bg-[#1a1a1a] w-full rounded-lg py-4 flex justify-around items-center shadow-2xl">
-                <div className="bg-pink-500 p-4 w-11 h-11 rounded-lg text-center flex justify-center items-center">
+              <div className="bg-[#1a1a1a] w-full rounded-lg py-4 flex justify-around items-center shadow-2xl border-[1px] border-stone-800">
+                <div className="bg-gradient-to-r from-green-500 via-green-500 to-lime-300 p-4 w-11 h-11 rounded-lg text-center flex justify-center items-center">
                   <FaRegFilePdf
                     size={28}
                     color="white"
-                    className="cursor-pointer"
+                    className="cursor-pointer "
                   />
                 </div>
                 <div className="space-y-2">
@@ -69,9 +79,14 @@ export default function Home() {
                     {(isFile.size / (1024 * 1024)).toFixed(1)} MB
                   </p>
                 </div>
-                <RxCross2 size={20} color="white" className="cursor-pointer" />
+                <RxCross2
+                  onClick={handleIconClick}
+                  size={20}
+                  color="white"
+                  className="cursor-pointer"
+                />
               </div>
-              <button className="bg-[#4bb496] font-semibold px-10 py-2 text-sm rounded-lg hover:brightness-90 ease-in-out duration-300 w-full mt-4">
+              <button className="bg-gradient-to-r from-green-500 via-green-600 to-lime-400 font-semibold px-10 py-2 text-sm rounded-full hover:brightness-90 ease-in-out duration-300 w-full mt-4 text-white">
                 Submit
               </button>
             </>
