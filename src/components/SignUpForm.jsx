@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth } from "../Firebase";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 export default function SignUpForm() {
   const provider = new GoogleAuthProvider();
 
@@ -14,16 +15,16 @@ export default function SignUpForm() {
     Pic: "",
   });
 
-  const saveData = async  () => {
-
+  const saveData = async (data) => {
     try {
-      
-      
-
+      const url = "";
+      const res = await axios.post(url, data);
+      if (res.status == 200) {
+        navigate("/home");
+      }
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-
   };
 
   const handleGoogleSignup = async () => {
@@ -36,7 +37,7 @@ export default function SignUpForm() {
         Phone: res.user.phoneNumber,
         Pic: res.user.photoURL,
       });
-      navigate("/");
+      saveData(data);
     } catch (error) {
       console.log(error);
       console.log(error.message);
