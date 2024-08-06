@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import { auth, db } from "../Firebase";
-import { doc, setDoc } from "firebase/firestore";
+import { auth } from "../Firebase";
 import { useNavigate } from "react-router-dom";
 export default function SignUpForm() {
   const provider = new GoogleAuthProvider();
@@ -15,10 +14,21 @@ export default function SignUpForm() {
     Pic: "",
   });
 
+  const saveData = async  () => {
+
+    try {
+      
+      
+
+    } catch (error) {
+      console.log(error)
+    }
+
+  };
+
   const handleGoogleSignup = async () => {
     try {
       const res = await signInWithPopup(auth, provider);
-      const docRef = doc(db, "USERS", res.providerId);
       setdata({
         ...data,
         Name: res.user.displayName,
@@ -26,7 +36,6 @@ export default function SignUpForm() {
         Phone: res.user.phoneNumber,
         Pic: res.user.photoURL,
       });
-      await setDoc(docRef, data);
       navigate("/");
     } catch (error) {
       console.log(error);

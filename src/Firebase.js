@@ -1,16 +1,15 @@
 import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
-import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
-
+import { getFirestore } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
 const firebaseConfig = {
-  apiKey: "AIzaSyDdBictezw-FIBuYVgqeohxhMLB4XfDthI",
-  authDomain: "flickk-964eb.firebaseapp.com",
-  projectId: "flickk-964eb",
-  storageBucket: "flickk-964eb.appspot.com",
-  messagingSenderId: "999041144522",
-  appId: "1:999041144522:web:4addc73adf094ca1658633",
-  measurementId: "G-2HDYN43826",
+  apiKey: "AIzaSyB0qudGLFOMQljy9dgZk79k2CPkr4LtNi8",
+  authDomain: "flickk-36d68.firebaseapp.com",
+  projectId: "flickk-36d68",
+  storageBucket: "flickk-36d68.appspot.com",
+  messagingSenderId: "752973074420",
+  appId: "1:752973074420:web:af91bb37240fd21caef3a1",
+  measurementId: "G-K411TRHE6D",
 };
 
 const app = initializeApp(firebaseConfig);
