@@ -4,30 +4,39 @@ import { FaRegFilePdf } from "react-icons/fa";
 import { RxCross2 } from "react-icons/rx";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { storage } from "../Firebase";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+
 export default function Home() {
+  
   const fileInputRef = useRef(null);
   const [isFile, setisFile] = useState(null);
 
+  const navigate = useNavigate();
 
-
-  const SaveURL = (url)=>{
-
-    
-
-
-  }
+  const SaveURL = async (pdfurl) => {
+    try {
+      console.log(pdfurl);
+      const url = "http://localhost:9000/login";
+      const res = await axios.post(url, { pdfurl: pdfurl });
+      if (res.status === 200) {
+        navigate("/home");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const uploadToFirebase = async (file) => {
     try {
       const fileRef = ref(storage, `userFiles/${file.name}`);
-      
       const uploadTask = uploadBytesResumable(fileRef, file);
-  
       uploadTask.on(
         "state_changed",
         (snapshot) => {
-          const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          console.log('Upload is ' + progress + '% done');
+          const progress =
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          console.log("Upload is " + progress + "% done");
         },
         (error) => {
           console.log(error.message);
@@ -47,7 +56,6 @@ export default function Home() {
     }
   };
 
-  
   const handleUploadFile = async (event) => {
     try {
       const file = event.target.files[0];
