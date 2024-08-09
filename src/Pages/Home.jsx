@@ -8,26 +8,46 @@ export default function Home() {
   const fileInputRef = useRef(null);
   const [isFile, setisFile] = useState(null);
 
+
+
+  const SaveURL = (url)=>{
+
+    
+
+
+  }
+
   const uploadToFirebase = async (file) => {
-    const fileRef = ref(storage, `userFiles/${file.name}`);
-    const uploadTask = await uploadBytesResumable(fileRef, file);
-    uploadTask.on(
-      "state_changed",
-      (snapshot) => {},
-      (error) => {
-        console.log(error.message);
-      },
-      async () => {
-        try {
-          const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
-          console.log(downloadURL);
-        } catch (error) {
-          console.log(error);
+    try {
+      const fileRef = ref(storage, `userFiles/${file.name}`);
+      
+      const uploadTask = uploadBytesResumable(fileRef, file);
+  
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          console.log('Upload is ' + progress + '% done');
+        },
+        (error) => {
+          console.log(error.message);
+        },
+        async () => {
+          try {
+            const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+            console.log(downloadURL);
+            SaveURL(downloadURL);
+          } catch (error) {
+            console.log(error);
+          }
         }
-      }
-    );
+      );
+    } catch (error) {
+      console.log(error);
+    }
   };
 
+  
   const handleUploadFile = async (event) => {
     try {
       const file = event.target.files[0];

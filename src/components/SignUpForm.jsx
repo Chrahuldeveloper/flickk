@@ -17,7 +17,7 @@ export default function SignUpForm() {
 
   const saveData = async (data) => {
     try {
-      console.log(data)
+      console.log(data);
       const url = "http://localhost:9000/login";
       const res = await axios.post(url, data);
       if (res.status === 200) {
@@ -37,7 +37,7 @@ export default function SignUpForm() {
         email: res.user.email,
         Pic: res.user.photoURL,
       });
-      console.log(data)
+      console.log(data);
       saveData(data);
     } catch (error) {
       console.log(error);
