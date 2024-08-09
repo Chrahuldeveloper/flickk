@@ -3,7 +3,7 @@ import { FaCloudUploadAlt } from "react-icons/fa";
 import { FaRegFilePdf } from "react-icons/fa";
 import { RxCross2 } from "react-icons/rx";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
-import { storage, db } from "../Firebase";
+import { storage } from "../Firebase";
 export default function Home() {
   const fileInputRef = useRef(null);
   const [isFile, setisFile] = useState(null);

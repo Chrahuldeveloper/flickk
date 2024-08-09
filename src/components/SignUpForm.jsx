@@ -19,7 +19,7 @@ export default function SignUpForm() {
     try {
       const url = "";
       const res = await axios.post(url, data);
-      if (res.status == 200) {
+      if (res.status === 200) {
         navigate("/home");
       }
     } catch (error) {
