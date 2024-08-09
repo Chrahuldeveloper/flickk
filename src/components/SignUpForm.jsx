@@ -17,7 +17,8 @@ export default function SignUpForm() {
 
   const saveData = async (data) => {
     try {
-      const url = "";
+      console.log(data)
+      const url = "http://localhost:9000/login";
       const res = await axios.post(url, data);
       if (res.status === 200) {
         navigate("/home");
@@ -34,9 +35,9 @@ export default function SignUpForm() {
         ...data,
         Name: res.user.displayName,
         email: res.user.email,
-        Phone: res.user.phoneNumber,
         Pic: res.user.photoURL,
       });
+      console.log(data)
       saveData(data);
     } catch (error) {
       console.log(error);
